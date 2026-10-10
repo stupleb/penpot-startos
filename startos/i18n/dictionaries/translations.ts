@@ -39,8 +39,7 @@ export default {
     34: 'Configurar SMTP',
     35: 'Permite que Penpot envíe correos: invitaciones a equipos, avisos de comentarios, restablecimientos de contraseña y verificación de registros. Penpot se reinicia para aplicarlo.',
     36: 'Crea la cuenta de administrador de Penpot para poder iniciar sesión por primera vez.',
-    37: 'La dirección que Penpot usa para las descargas y los enlaces de correo ya no está disponible. Elige una nueva URL principal.',
-    38: 'Introduce una dirección de correo electrónico válida.',
+    37: 'Elige la dirección que Penpot usa para las descargas y los enlaces de correo.',
   },
   de_DE: {
     0: 'Starte Penpot!',
@@ -80,8 +79,7 @@ export default {
     34: 'SMTP konfigurieren',
     35: 'Lässt Penpot E-Mails senden: Team-Einladungen, Kommentarbenachrichtigungen, Passwort-Zurücksetzungen und die Bestätigung von Registrierungen. Penpot startet neu, um es zu übernehmen.',
     36: 'Lege das Penpot-Administratorkonto an, damit du dich zum ersten Mal anmelden kannst.',
-    37: 'Die Adresse, die Penpot für Downloads und E-Mail-Links verwendet, ist nicht mehr verfügbar. Wähle eine neue primäre URL.',
-    38: 'Gib eine gültige E-Mail-Adresse ein.',
+    37: 'Wähle die Adresse, die Penpot für Downloads und E-Mail-Links verwendet.',
   },
   pl_PL: {
     0: 'Uruchamianie Penpot!',
@@ -121,8 +119,7 @@ export default {
     34: 'Skonfiguruj SMTP',
     35: 'Pozwala Penpot wysyłać e-maile: zaproszenia do zespołów, powiadomienia o komentarzach, resetowanie haseł i weryfikację rejestracji. Penpot uruchamia się ponownie, aby to zastosować.',
     36: 'Utwórz konto administratora Penpot, aby zalogować się po raz pierwszy.',
-    37: 'Adres, którego Penpot używa do pobierania plików i w linkach w e-mailach, nie jest już dostępny. Wybierz nowy główny URL.',
-    38: 'Podaj prawidłowy adres e-mail.',
+    37: 'Wybierz adres, którego Penpot używa do pobierania plików i w linkach w e-mailach.',
   },
   fr_FR: {
     0: 'Démarrage de Penpot !',
@@ -162,7 +159,6 @@ export default {
     34: 'Configurer SMTP',
     35: "Permet à Penpot d'envoyer des e-mails : invitations d'équipe, notifications de commentaires, réinitialisations de mot de passe et vérification des inscriptions. Penpot redémarre pour l'appliquer.",
     36: 'Créez le compte administrateur de Penpot pour pouvoir vous connecter la première fois.',
-    37: "L'adresse que Penpot utilise pour les téléchargements et les liens des e-mails n'est plus disponible. Choisissez une nouvelle URL principale.",
-    38: 'Saisissez une adresse e-mail valide.',
+    37: "Choisissez l'adresse que Penpot utilise pour les téléchargements et les liens des e-mails.",
   },
 } satisfies Record<string, LangDict>

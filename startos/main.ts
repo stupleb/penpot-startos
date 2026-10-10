@@ -1,4 +1,5 @@
 import { T } from '@start9labs/start-sdk'
+import { primaryUrl } from './actions/setPrimaryUrl'
 import { storeJson } from './fileModels/store.json'
 import { i18n } from './i18n'
 import { sdk } from './sdk'
@@ -44,7 +45,6 @@ export const main = sdk.setupMain(async ({ effects }) => {
     .read((s) => ({
       secretKey: s.secretKey,
       postgresPassword: s.postgresPassword,
-      primaryUrl: s.primaryUrl,
       smtp: s.smtp,
       signups: s.signups,
       adminPassword: s.adminPassword,
@@ -79,8 +79,11 @@ export const main = sdk.setupMain(async ({ effects }) => {
     smtp ? 'enable-email-verification' : 'disable-email-verification',
   ].join(' ')
 
-  const primaryUrl = store.primaryUrl.replace(/\/+$/, '')
-  const publicUriEnv = primaryUrl ? { PENPOT_PUBLIC_URI: primaryUrl } : {}
+  const publicUri = (await primaryUrl.bestUsable(effects).const())?.replace(
+    /\/+$/,
+    '',
+  )
+  const publicUriEnv = publicUri ? { PENPOT_PUBLIC_URI: publicUri } : {}
   const redisUri = 'redis://127.0.0.1:6379/0'
 
   const postgresSub = sdk.SubContainer.of(
@@ -149,8 +152,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
                     '-t',
                     '15',
                   ],
-                  {},
-                  20_000,
+                  { timeout: 20_000 },
                 )
               ).exitCode === 0,
           ))
@@ -181,7 +183,11 @@ export const main = sdk.setupMain(async ({ effects }) => {
         fn: async () =>
           (await tolerant(
             async () =>
-              (await valkeySub.exec(['valkey-cli', 'ping'], {}, 20_000)).stdout
+              (
+                await valkeySub.exec(['valkey-cli', 'ping'], {
+                  timeout: 20_000,
+                })
+              ).stdout
                 .toString()
                 .trim() === 'PONG',
           ))
