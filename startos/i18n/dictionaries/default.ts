@@ -33,7 +33,6 @@ const dict = {
   'Password Reset': 22,
   'Send these credentials to the person. They can change the password in their Penpot account settings.': 23,
   'The account now signs in with this password.': 24,
-  'Enter a valid email address.': 38,
 
   // actions/toggleSignups.ts
   'Disable Signups': 25,
@@ -55,8 +54,8 @@ const dict = {
   // init/watchAdminPassword.ts
   'Create the Penpot administrator account so you can sign in for the first time.': 36,
 
-  // init/watchPrimaryUrl.ts
-  'The address Penpot uses for downloads and email links is no longer available. Choose a new primary URL.': 37,
+  // init/index.ts
+  'Choose the address Penpot uses for downloads and email links.': 37,
 } as const
 
 /**

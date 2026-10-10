@@ -11,9 +11,9 @@ Penpot runs entirely on your server: the editor and dashboard on the **Web UI** 
 ## Getting set up
 
 1. Run the **Set Admin Password** task. Copy the email (`admin@penpot.local`) and the password it shows you.
-2. Start Penpot and open the **Web UI** interface. The first start takes a minute or two while Penpot prepares its database.
-3. Sign in with the email and password from step 1. You can change both under **Your account** in Penpot.
-4. If you will mostly use Penpot at an address other than the `.local` one, for example a public domain your clients can reach, run **Set Primary URL** and pick that address.
+2. Run the **Set Primary URL** task and pick the address you will normally use Penpot at, for example a public domain your clients can reach. Downloads work at that address, and **Open UI** opens it.
+3. Start Penpot and open the **Web UI** interface. The first start takes a minute or two while Penpot prepares its database.
+4. Sign in with the email and password from step 1. You can change both under **Your account** in Penpot.
 5. Optional: run **Configure SMTP** so Penpot can send invitations, comment notifications and password-reset emails.
 
 ## Sharing work with clients and collaborators
@@ -30,11 +30,11 @@ Anyone with a share link can view a prototype without an account. To leave comme
 - **Set Admin Password** — gives the administrator account a new random password. Use it if you lose the password; a running Penpot restarts to apply it.
 - **Create or Reset Account** — creates an account for an email, or gives an existing account a new random password.
 - **Enable Signups** / **Disable Signups** — turns self-registration on the Penpot login page on or off.
-- **Set Primary URL** — chooses the address Penpot uses for downloads and email links.
+- **Set Primary URL** — chooses the address Penpot uses for downloads and email links, which is also the one **Open UI** opens.
 - **Configure SMTP** — lets Penpot send email through your server's SMTP settings or another provider.
 
 ## Limitations
 
-Downloading exports, `.penpot` files and fonts only works while you use Penpot at its primary URL. On any other address, switch to the primary URL to download, or run **Set Primary URL** and pick the address you are on.
+Downloading exports, `.penpot` files and fonts only works while you use Penpot at its primary URL, which is where **Open UI** takes you. On any other address, switch to the primary URL to download, or run **Set Primary URL** and pick the address you are on.
 
 On a busy server, the first export after a pause can fail with an error while Penpot starts its export browser. Export again and it works.

@@ -1,7 +1,6 @@
-import { SubContainer, T, utils } from '@start9labs/start-sdk'
+import { SubContainer, utils } from '@start9labs/start-sdk'
 import { createHash } from 'node:crypto'
 import { manifest } from './manifest'
-import { sdk } from './sdk'
 
 export const uiPort = 8080
 export const backendPort = 6060
@@ -26,26 +25,14 @@ export const getRandomPassword = () =>
 export const sha256 = (value: string) =>
   createHash('sha256').update(value).digest('hex')
 
-export const uiUrls = (effects: T.Effects) =>
-  sdk.host.getOwn(effects, uiHostId, (host) => {
-    const ui = Object.values(host?.bindings ?? {})
-      .flatMap((b) => Object.values(b.interfaces))
-      .find((i) => i.id === uiInterfaceId)
-    const all = ui?.addressInfo.nonLocal.format() ?? []
-    const mdns =
-      ui?.addressInfo.nonLocal.filter({ kind: 'mdns' }).format() ?? []
-    return { all, preferred: mdns[0] ?? all[0] }
-  })
-
 type PenpotSub = SubContainer<typeof manifest>
 
 // manage.py talks to the running backend's PREPL port (localhost:6063).
 export async function managePy(sub: PenpotSub, args: string[]) {
-  const res = await sub.exec(
-    ['python3', 'manage.py', ...args],
-    { cwd: backendDir },
-    60_000,
-  )
+  const res = await sub.exec(['python3', 'manage.py', ...args], {
+    cwd: backendDir,
+    timeout: 60_000,
+  })
   const out = res.stdout.toString().trim()
   if (res.exitCode !== 0) {
     throw new Error(
@@ -107,8 +94,7 @@ export async function queryOne(postgresSub: PenpotSub, sql: string) {
       '-c',
       sql,
     ],
-    {},
-    30_000,
+    { timeout: 30_000 },
   )
   return stdout.toString().trim() || null
 }

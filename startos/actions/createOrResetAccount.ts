@@ -49,9 +49,6 @@ export const createOrResetAccount = sdk.Action.withInput(
 
   async ({ effects, input }) => {
     const email = input.email.trim().toLowerCase()
-    if (!new RegExp(utils.Patterns.email.regex).test(email)) {
-      throw new Error(i18n('Enter a valid email address.'))
-    }
     const password = getRandomPassword()
 
     const created = await sdk.SubContainer.withTemp(

@@ -63,7 +63,7 @@ The package writes no Penpot configuration file. Penpot is configured entirely t
 | Key                                         | Set by                                                                            |
 | ------------------------------------------- | --------------------------------------------------------------------------------- |
 | `secretKey`, `postgresPassword`             | Generated once at install. Never changed: sessions and invitation tokens derive from the secret key |
-| `primaryUrl`                                | Seeded at install with the interface's `.local` address; changed by Set Primary URL |
+| `primaryUrl`                                | Set Primary URL; empty until an address is chosen                                 |
 | `smtp`                                      | Configure SMTP                                                                    |
 | `signups`                                   | Enable/Disable Signups                                                            |
 | `adminPassword`                             | Set Admin Password                                                                |
@@ -81,13 +81,15 @@ None.
 
 One interface, `ui` (type `ui`), on port 8080 over HTTP, which StartOS serves with TLS. It carries the dashboard, the editor, view mode and share links, the API and the live-update websocket. The backend, exporter, PREPL server, PostgreSQL, Valkey and nginx's status page (port 8082) are not exposed.
 
-The web app uses whichever address the browser is on, so it works at every address StartOS gives the interface. Share links and invitation links copied from the app carry the address you copied them on. Four things are built by the backend from the primary URL instead: export downloads, `.penpot` file downloads, font downloads, and links in emails. The downloads also need the login cookie of that address, so they only work while you use Penpot at the primary URL.
+The web app uses whichever address the browser is on, so it works at every address StartOS gives the interface. Share links and invitation links copied from the app carry the address you copied them on. Four things are built by the backend from the primary URL instead: export downloads, `.penpot` file downloads, font downloads, and links in emails. The downloads also need the login cookie of that address, so they only work while you use Penpot at the primary URL. StartOS's **Open UI** opens that address.
+
+The primary URL is the address chosen with Set Primary URL. While none is chosen, or the chosen one is no longer one of the interface's addresses, Penpot uses the preferred address instead: a public domain, HTTPS first, else the `.local` address. A chosen address that comes back is used again.
 
 Outbound, the frontend fetches Google Fonts and Penpot's online libraries and templates when someone uses them. Telemetry is off.
 
 ## Installation and First-Run Flow
 
-At install the package generates the secret key and database password, sets the primary URL to the `.local` address, and raises a critical task for Set Admin Password. Penpot cannot start until it has run.
+At install the package generates the secret key and database password, and raises a critical task for Set Admin Password and an important one for Set Primary URL. Penpot cannot start until Set Admin Password has run; until a primary URL is chosen it uses the preferred address.
 
 On the first start the backend migrates the empty database, then the `admin-account` oneshot creates the administrator account `admin@penpot.local` through Penpot's own `manage.py`, using the stored password. The web interface waits for that step. Signups are off, so Penpot's login page offers only sign-in.
 
@@ -99,7 +101,7 @@ On the first start the backend migrates the empty database, then the `admin-acco
 
 **Enable Signups / Disable Signups** — one toggle. Enabling lets anyone who can reach Penpot register from the login page; with email configured, new accounts must verify their address first. Disabling stops new registrations and leaves existing accounts alone. Either way Penpot restarts.
 
-**Set Primary URL** — run when the downloads in [Network Access and Interfaces](#network-access-and-interfaces) should come from a different address, usually the one collaborators and clients reach. Penpot restarts.
+**Set Primary URL** — run after install (the important task), or when the downloads in [Network Access and Interfaces](#network-access-and-interfaces) should come from a different address, usually the one collaborators and clients reach. It offers the interface's addresses with the preferred one selected. Penpot restarts.
 
 **Configure SMTP** — off, StartOS's system SMTP, or a custom server. With email on, Penpot sends invitations, comment and mention notifications, password-recovery mail and signup verification. With it off, Penpot sends nothing and email verification is turned off. Penpot restarts.
 
@@ -107,7 +109,7 @@ On the first start the backend migrates the empty database, then the `admin-acco
 
 **Set Admin Password** (critical) — raised when `store.json` holds no admin password, which on a normal install means only right after installation. Running the action clears it, and it does not come back.
 
-**Set Primary URL** (important) — raised when the stored primary URL is no longer one of the interface's addresses, for example after a domain is removed. Penpot keeps running. It clears by itself when that address returns, or when the action picks a new one, and it can be raised again.
+**Set Primary URL** (important) — raised while no primary URL is chosen, which on a new install means until the action runs, and when the chosen address is no longer one of the interface's addresses, for example after a domain is removed. Penpot keeps running on the preferred address. It clears by itself when that address returns, or when the action picks one, and it can be raised again.
 
 ## Health Checks
 
@@ -125,7 +127,7 @@ The database is dumped with `pg_dump` and replayed on restore; the files of the 
 
 ## Limitations and Differences
 
-1. Export downloads, `.penpot` file downloads, font downloads and email links use the primary URL, and the downloads only work while you are signed in at that address.
+1. Export downloads, `.penpot` file downloads, font downloads and email links use the primary URL, and the downloads only work while you are signed in at that address. **Open UI** opens it.
 2. Commenting needs a Penpot account, even on a share link. With signups off, Penpot also refuses new accounts that arrive through an invitation link; use Create or Reset Account, or enable signups while people register.
 3. Not included: Penpot's Admin Console (the Enterprise back office), its MCP server for AI tools, single sign-on (OIDC, LDAP, Google, GitHub, GitLab) and S3 object storage.
 4. Telemetry is off.
