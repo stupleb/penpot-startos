@@ -17,7 +17,9 @@ export const manifest = setupManifest({
       arch: ['x86_64', 'aarch64'],
     },
     backend: {
-      source: { dockerTag: 'penpotapp/backend:2.18.3' },
+      source: {
+        dockerBuild: { buildArgs: { IMAGE: 'penpotapp/backend:2.18.3' } },
+      },
       arch: ['x86_64', 'aarch64'],
     },
     exporter: {

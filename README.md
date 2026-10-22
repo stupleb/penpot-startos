@@ -32,12 +32,12 @@
 
 ## Image and Container Runtime
 
-Every image is used unmodified, for x86_64 and aarch64. Penpot's three images and PostgreSQL run their own entrypoints; Valkey runs `valkey-server` directly with persistence off. The five subcontainers share one network namespace and reach each other on `127.0.0.1`; only the frontend's port is exposed.
+Every image is upstream's, for x86_64 and aarch64. The backend's is rebuilt by the root `Dockerfile`, which replaces its system CA store and Java `cacerts` with Debian's fixed ones; this layer is temporary and comes out once upstream ships an image whose stores no longer trust emSign ECC Root CA - G3. The others are used unmodified. Penpot's three images and PostgreSQL run their own entrypoints; Valkey runs `valkey-server` directly with persistence off. The five subcontainers share one network namespace and reach each other on `127.0.0.1`; only the frontend's port is exposed.
 
 | Subcontainer | Image                | Role                                                                                                                                                                           |
 | ------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `frontend`   | `penpotapp/frontend` | nginx on port 8080: serves the web app, forwards `/api`, `/ws/notifications` and `/assets` to the backend and `/api/export` to the exporter, and proxies Google Fonts and Penpot's online templates |
-| `backend`    | `penpotapp/backend`  | Penpot's API server on port 6060. Migrates the database on start, and runs Penpot's PREPL administration server on `localhost:6063`, which the package's account actions use          |
+| `backend`    | `penpotapp/backend` + `Dockerfile` | Penpot's API server on port 6060. Migrates the database on start, and runs Penpot's PREPL administration server on `localhost:6063`, which the package's account actions use          |
 | `exporter`   | `penpotapp/exporter` | Headless Chromium on port 6061 that renders exports of layers and boards; it starts a browser when an export arrives and closes it again after ten idle seconds |
 | `postgres`   | `postgres` (Alpine)  | The database, listening on `127.0.0.1` only                                                                                                                                     |
 | `valkey`     | `valkey/valkey` (Alpine) | Cache and live-update messages, bound to `127.0.0.1`, nothing written to disk                                                                                              |
@@ -140,7 +140,7 @@ The database is dumped with `pg_dump` and replayed on restore; the files of the 
 
 ```yaml
 package_id: penpot
-image: penpotapp/frontend, penpotapp/backend, penpotapp/exporter, postgres, valkey/valkey
+image: penpotapp/frontend, penpotapp/backend (CA stores replaced by Dockerfile), penpotapp/exporter, postgres, valkey/valkey
 architectures: [x86_64, aarch64]
 subcontainers: [frontend, backend, exporter, postgres, valkey]
 volumes:

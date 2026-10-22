@@ -44,8 +44,14 @@ done
    - `backend/scripts/manage.py` still prints `Created: <email> / <id>`,
      `Updated` and `No profile found with email …`, which `startos/utils.ts`
      parses.
-3. Set the three `images.*.source.dockerTag` values in
-   `startos/manifest/index.ts` to `penpotapp/<name>:X.Y.Z`.
+3. In `startos/manifest/index.ts`, set `images.frontend` and
+   `images.exporter`'s `source.dockerTag`, and the `IMAGE` build arg of
+   `images.backend.source.dockerBuild`, to `penpotapp/<name>:X.Y.Z`. The
+   backend's `Dockerfile` replaces its CA stores; keep it until the new
+   backend image's `/opt/jre/lib/security/cacerts` has no emSign alias and its
+   `/etc/ssl/certs/ca-certificates.crt` no longer contains
+   `MIICTjCCAdOgAwIBAgIKPPYHqWhwDtqLhDAKBggqhkjOPQQDAzBr`, then delete it and
+   go back to `dockerTag`.
 4. In `startos/versions/current.ts`, set `version` to `X.Y.Z:0` and rewrite
    the release notes, linking `https://github.com/penpot/penpot/releases/tag/X.Y.Z`.
 
