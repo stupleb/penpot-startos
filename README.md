@@ -32,7 +32,7 @@
 
 ## Image and Container Runtime
 
-Every image is upstream's, for x86_64 and aarch64. The backend's is rebuilt by the root `Dockerfile`, which replaces its system CA store and Java `cacerts` with Debian's fixed ones; this layer is temporary and comes out once upstream ships an image whose stores no longer trust emSign ECC Root CA - G3. The others are used unmodified. Penpot's three images and PostgreSQL run their own entrypoints; Valkey runs `valkey-server` directly with persistence off. The five subcontainers share one network namespace and reach each other on `127.0.0.1`; only the frontend's port is exposed.
+Every image is upstream's, for x86_64 and aarch64. The backend's is rebuilt by the root `Dockerfile`, which replaces its system CA store, Java `cacerts` and Brotli library (the system copy and ImageMagick's in `/opt/imagick/lib/deps`) with Debian's fixed ones; this layer is temporary and comes out once upstream ships an image whose stores no longer trust emSign ECC Root CA - G3 and whose Brotli carries the fix for CVE-2026-111497. The others are used unmodified. Penpot's three images and PostgreSQL run their own entrypoints; Valkey runs `valkey-server` directly with persistence off. The five subcontainers share one network namespace and reach each other on `127.0.0.1`; only the frontend's port is exposed.
 
 | Subcontainer | Image                | Role                                                                                                                                                                           |
 | ------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -140,7 +140,7 @@ The database is dumped with `pg_dump` and replayed on restore; the files of the 
 
 ```yaml
 package_id: penpot
-image: penpotapp/frontend, penpotapp/backend (CA stores replaced by Dockerfile), penpotapp/exporter, postgres, valkey/valkey
+image: penpotapp/frontend, penpotapp/backend (CA stores and Brotli library replaced by Dockerfile), penpotapp/exporter, postgres, valkey/valkey
 architectures: [x86_64, aarch64]
 subcontainers: [frontend, backend, exporter, postgres, valkey]
 volumes:
