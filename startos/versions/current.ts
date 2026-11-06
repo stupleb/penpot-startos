@@ -1,17 +1,17 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '2.18.4:0',
+  version: '2.18.6:0',
   releaseNotes: {
     en_US:
-      'Updated Penpot to 2.18.4. Includes the October 2026 Node.js security fixes and the Brotli security fix (CVE-2026-111497). Fixes storage cleanup that deleted nothing or left files behind, and saving a version taking seconds. Full release notes: https://github.com/penpot/penpot/releases/tag/2.18.4',
+      'Updated Penpot to 2.18.6, which fixes a security flaw that let any signed-in user read files from the server. Requires StartOS 0.4.1 or later. Full release notes: https://github.com/penpot/penpot/releases/tag/2.18.6',
     es_ES:
-      'Penpot actualizado a 2.18.4. Incluye las correcciones de seguridad de Node.js de octubre de 2026 y la corrección de seguridad de Brotli (CVE-2026-111497). Corrige la limpieza del almacenamiento que no borraba nada o dejaba archivos sin borrar, y que guardar una versión tardara segundos. Notas de la versión completas: https://github.com/penpot/penpot/releases/tag/2.18.4',
+      'Penpot actualizado a 2.18.6, que corrige un fallo de seguridad que permitía a cualquier usuario con sesión iniciada leer archivos del servidor. Requiere StartOS 0.4.1 o posterior. Notas de la versión completas: https://github.com/penpot/penpot/releases/tag/2.18.6',
     de_DE:
-      'Penpot auf 2.18.4 aktualisiert. Enthält die Node.js-Sicherheitskorrekturen vom Oktober 2026 und die Brotli-Sicherheitskorrektur (CVE-2026-111497). Behebt eine Speicherbereinigung, die nichts löschte oder Dateien zurückließ, sowie das sekundenlange Speichern einer Version. Vollständige Versionshinweise: https://github.com/penpot/penpot/releases/tag/2.18.4',
+      'Penpot auf 2.18.6 aktualisiert. Behebt eine Sicherheitslücke, durch die jeder angemeldete Benutzer Dateien vom Server lesen konnte. Erfordert StartOS 0.4.1 oder neuer. Vollständige Versionshinweise: https://github.com/penpot/penpot/releases/tag/2.18.6',
     pl_PL:
-      'Zaktualizowano Penpot do 2.18.4. Zawiera poprawki bezpieczeństwa Node.js z października 2026 oraz poprawkę bezpieczeństwa Brotli (CVE-2026-111497). Naprawiono czyszczenie magazynu, które niczego nie usuwało lub zostawiało pliki, oraz zapisywanie wersji trwające kilka sekund. Pełne informacje o wydaniu: https://github.com/penpot/penpot/releases/tag/2.18.4',
-    fr_FR: `Penpot mis à jour vers 2.18.4. Inclut les correctifs de sécurité Node.js d'octobre 2026 et le correctif de sécurité de Brotli (CVE-2026-111497). Corrige le nettoyage du stockage qui ne supprimait rien ou laissait des fichiers, et l'enregistrement d'une version qui prenait plusieurs secondes. Notes de version complètes : https://github.com/penpot/penpot/releases/tag/2.18.4`,
+      'Zaktualizowano Penpot do 2.18.6, który naprawia lukę bezpieczeństwa pozwalającą każdemu zalogowanemu użytkownikowi odczytywać pliki z serwera. Wymaga StartOS 0.4.1 lub nowszego. Pełne informacje o wydaniu: https://github.com/penpot/penpot/releases/tag/2.18.6',
+    fr_FR: `Penpot mis à jour vers 2.18.6, qui corrige une faille de sécurité permettant à tout utilisateur connecté de lire des fichiers du serveur. Nécessite StartOS 0.4.1 ou une version ultérieure. Notes de version complètes : https://github.com/penpot/penpot/releases/tag/2.18.6`,
   },
   migrations: {
     up: async ({ effects }) => {},
