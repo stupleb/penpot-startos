@@ -74,6 +74,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
 
   const PENPOT_FLAGS = [
     'enable-prepl-server',
+    'disable-admin-console',
     store.signups ? 'enable-registration' : 'disable-registration',
     smtp ? 'enable-smtp' : 'disable-smtp',
     smtp ? 'enable-email-verification' : 'disable-email-verification',

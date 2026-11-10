@@ -69,7 +69,7 @@ The package writes no Penpot configuration file. Penpot is configured entirely t
 | `adminPassword`                             | Set Admin Password                                                                |
 | `adminApplied`, `adminProfileId`, `adminEmail` | The `admin-account` oneshot: a hash of the last applied admin password, the admin account's id, and its email when last applied |
 
-Environment variables re-asserted on every start: `PENPOT_FLAGS` (signups, SMTP and email verification, the PREPL server), `PENPOT_PUBLIC_URI` (backend and exporter only), `PENPOT_SECRET_KEY`, the database and Redis connection settings, `PENPOT_OBJECTS_STORAGE_*`, `PENPOT_TELEMETRY_ENABLED=false`, and the `PENPOT_SMTP_*` settings when email is configured.
+Environment variables re-asserted on every start: `PENPOT_FLAGS` (signups, SMTP and email verification, the PREPL server, the Admin Console turned off), `PENPOT_PUBLIC_URI` (backend and exporter only), `PENPOT_SECRET_KEY`, the database and Redis connection settings, `PENPOT_OBJECTS_STORAGE_*`, `PENPOT_TELEMETRY_ENABLED=false`, and the `PENPOT_SMTP_*` settings when email is configured.
 
 Everything set inside Penpot — accounts, teams, notification preferences, a password changed in the account settings — belongs to the user and is never re-asserted. The admin password in particular is applied only when Set Admin Password has produced a new one; a password the administrator changes inside Penpot stays.
 

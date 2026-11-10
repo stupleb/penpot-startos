@@ -10,4 +10,5 @@ bare clone with no workspace, the full guide is at <https://docs.start9.com/pack
 
 - Never give the `frontend` daemon `PENPOT_PUBLIC_URI`. Its entrypoint writes the value into `config.js`, the app then sends every API call to that one address, and on every other address StartOS serves those calls are cross-origin and fail.
 - Keep `adminApplied`, `adminProfileId` and `adminEmail` out of `main`'s reactive `storeJson` read. The `admin-account` oneshot writes them with `main`'s effects, and FileHelper refuses a write that changes a value read with `.const()` in the same context, so the oneshot would fail on every start.
+- Keep `disable-admin-console` in `PENPOT_FLAGS`. Penpot enables its Admin Console by default, and without that service every signed-in request goes through an organization check that fails.
 - `startos/utils.ts` parses `manage.py`'s output (`Created: <email> / <id>`, `Updated`, `No profile found…`). Check those strings in `backend/scripts/manage.py` when bumping Penpot.
