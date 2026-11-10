@@ -33,10 +33,9 @@ done
    `Upgrade to …` sections of `docs/technical-guide/getting-started/docker.md`
    and the diff of `docker/images/docker-compose.yaml` between the two tags.
    A new required service or environment variable lands there first. The
-   Admin Console (`penpotapp/admin-console`) is announced as becoming required
-   in a future release; its source repository is private and the image
-   declares no license, so a release that requires it needs a decision before
-   it is packaged.
+   Admin Console (`penpotapp/admin-console`) is on by default from 2.19 and
+   the package turns it off with `disable-admin-console`; its source
+   repository is private and the image declares no license.
 2. Check the interfaces the package depends on:
    - `docker/images/files/nginx-entrypoint.sh` still reads `PENPOT_BACKEND_URI`
      and `PENPOT_EXPORTER_URI`, and still writes `penpotPublicURI` only when
