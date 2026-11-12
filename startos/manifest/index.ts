@@ -13,17 +13,17 @@ export const manifest = setupManifest({
   volumes: ['startos', 'assets', 'db'],
   images: {
     frontend: {
-      source: { dockerTag: 'penpotapp/frontend:2.19.0' },
+      source: { dockerTag: 'penpotapp/frontend:2.19.1' },
       arch: ['x86_64', 'aarch64'],
     },
     backend: {
       source: {
-        dockerBuild: { buildArgs: { IMAGE: 'penpotapp/backend:2.19.0' } },
+        dockerBuild: { buildArgs: { IMAGE: 'penpotapp/backend:2.19.1' } },
       },
       arch: ['x86_64', 'aarch64'],
     },
     exporter: {
-      source: { dockerTag: 'penpotapp/exporter:2.19.0' },
+      source: { dockerTag: 'penpotapp/exporter:2.19.1' },
       arch: ['x86_64', 'aarch64'],
     },
     postgres: {
@@ -31,7 +31,7 @@ export const manifest = setupManifest({
       arch: ['x86_64', 'aarch64'],
     },
     valkey: {
-      source: { dockerTag: 'valkey/valkey:8.1.10-alpine' },
+      source: { dockerTag: 'valkey/valkey:8.1.11-alpine' },
       arch: ['x86_64', 'aarch64'],
     },
   },
