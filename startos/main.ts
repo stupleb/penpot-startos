@@ -339,6 +339,8 @@ export const main = sdk.setupMain(async ({ effects }) => {
           PENPOT_FLAGS,
           PENPOT_BACKEND_URI: `http://127.0.0.1:${backendPort}`,
           PENPOT_EXPORTER_URI: `http://127.0.0.1:${exporterPort}`,
+          PENPOT_HTTP_SERVER_WORKER_PROCESSES: '2',
+          PENPOT_HTTP_SERVER_WORKER_CONNECTIONS: '2048',
         },
       },
       ready: {
