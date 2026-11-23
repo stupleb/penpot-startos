@@ -37,25 +37,22 @@ done
    the package turns it off with `disable-admin-console`; its source
    repository is private and the image declares no license.
 2. Check the interfaces the package depends on:
-   - `docker/images/files/nginx-entrypoint.sh` still reads `PENPOT_BACKEND_URI`
-     and `PENPOT_EXPORTER_URI`, and still writes `penpotPublicURI` only when
-     `PENPOT_PUBLIC_URI` is set.
+   - `docker/images/files/nginx-entrypoint.sh` still reads `PENPOT_BACKEND_URI`,
+     `PENPOT_EXPORTER_URI`, `PENPOT_HTTP_SERVER_WORKER_PROCESSES` and
+     `PENPOT_HTTP_SERVER_WORKER_CONNECTIONS`, and still writes `penpotPublicURI`
+     only when `PENPOT_PUBLIC_URI` is set.
    - `backend/scripts/manage.py` still prints `Created: <email> / <id>`,
      `Updated` and `No profile found with email …`, which `startos/utils.ts`
      parses.
 3. In `startos/manifest/index.ts`, set `images.frontend` and
    `images.exporter`'s `source.dockerTag`, and the `IMAGE` build arg of
    `images.backend.source.dockerBuild`, to `penpotapp/<name>:X.Y.Z`. The
-   backend's `Dockerfile` replaces its CA stores and its Brotli library (the
-   system copy and ImageMagick's in `/opt/imagick/lib/deps`, which
-   `LD_LIBRARY_PATH` puts first). Keep it until the new backend image passes
-   all three checks, then delete it and go back to `dockerTag`:
-   - `/opt/jre/lib/security/cacerts` has no emSign alias;
-   - `/etc/ssl/certs/ca-certificates.crt` no longer contains
-     `MIICTjCCAdOgAwIBAgIKPPYHqWhwDtqLhDAKBggqhkjOPQQDAzBr`;
-   - `/usr/share/doc/libbrotli1/changelog.Debian.gz` names CVE-2026-111497,
-     and `/opt/imagick/lib/deps/libbrotlidec.so.1` is identical to the system
-     `libbrotlidec.so.1`.
+   backend's `Dockerfile` replaces its Brotli library (the system copy and
+   ImageMagick's in `/opt/imagick/lib/deps`, which `LD_LIBRARY_PATH` puts
+   first). Keep it until `/usr/share/doc/libbrotli1/changelog.Debian.gz` in the
+   new backend image names CVE-2026-111497 and
+   `/opt/imagick/lib/deps/libbrotlidec.so.1` is identical to the system
+   `libbrotlidec.so.1`, then delete it and go back to `dockerTag`.
 4. In `startos/versions/current.ts`, set `version` to `X.Y.Z:0` and rewrite
    the release notes, linking `https://github.com/penpot/penpot/releases/tag/X.Y.Z`.
 
