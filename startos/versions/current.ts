@@ -1,17 +1,17 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '2.19.4:0',
+  version: '2.19.5:0',
   releaseNotes: {
     en_US:
-      'Updated Penpot to 2.19.4, which fixes importing large .penpot files in Chrome. Full release notes: https://github.com/penpot/penpot/releases/tag/2.19.4',
+      'Updated Penpot to 2.19.5. Large .penpot files may fail to import in Chrome again until Penpot 2.20; Firefox imports them. Full release notes: https://github.com/penpot/penpot/releases/tag/2.19.5',
     es_ES:
-      'Penpot actualizado a 2.19.4, que corrige la importación de archivos .penpot grandes en Chrome. Notas de la versión completas: https://github.com/penpot/penpot/releases/tag/2.19.4',
+      'Penpot actualizado a 2.19.5. Es posible que los archivos .penpot grandes vuelvan a fallar al importarse en Chrome hasta Penpot 2.20; Firefox los importa. Notas de la versión completas: https://github.com/penpot/penpot/releases/tag/2.19.5',
     de_DE:
-      'Penpot auf 2.19.4 aktualisiert. Behebt den Import großer .penpot-Dateien in Chrome. Vollständige Versionshinweise: https://github.com/penpot/penpot/releases/tag/2.19.4',
+      'Penpot auf 2.19.5 aktualisiert. Der Import großer .penpot-Dateien kann in Chrome bis Penpot 2.20 wieder fehlschlagen; Firefox importiert sie. Vollständige Versionshinweise: https://github.com/penpot/penpot/releases/tag/2.19.5',
     pl_PL:
-      'Zaktualizowano Penpot do 2.19.4, który naprawia import dużych plików .penpot w Chrome. Pełne informacje o wydaniu: https://github.com/penpot/penpot/releases/tag/2.19.4',
-    fr_FR: `Penpot mis à jour vers 2.19.4, qui corrige l'import de gros fichiers .penpot dans Chrome. Notes de version complètes : https://github.com/penpot/penpot/releases/tag/2.19.4`,
+      'Zaktualizowano Penpot do 2.19.5. Import dużych plików .penpot w Chrome może znów kończyć się błędem aż do Penpot 2.20; Firefox je importuje. Pełne informacje o wydaniu: https://github.com/penpot/penpot/releases/tag/2.19.5',
+    fr_FR: `Penpot mis à jour vers 2.19.5. L'import de gros fichiers .penpot peut de nouveau échouer dans Chrome jusqu'à Penpot 2.20 ; Firefox les importe. Notes de version complètes : https://github.com/penpot/penpot/releases/tag/2.19.5`,
   },
   migrations: {
     up: async ({ effects }) => {},
